@@ -1,15 +1,16 @@
 package DbConnection;
 
 import DbConnection.Interfaces.IDbContextFactory;
+import DbConnection.Interfaces.IDbContext;
 
 public class MongoDbConnectionFactory implements IDbContextFactory {
     @Override
     public MockDbContext CreateMockDbContext() {
-        return null;
+        return new MockDbContext();
     }
 
     @Override
-    public RealDbContext CreateRealDbContext() {
-        return null;
+    public IDbContext CreateRealDbContext() {
+        return new MongoDbContext();
     }
 }
