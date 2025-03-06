@@ -11,6 +11,6 @@ public class MongoDbConnectionFactory implements IDbContextFactory {
 
     @Override
     public IDbContext CreateRealDbContext() {
-        return new MongoDbContext();
+        return new MongoDbContext("connectionString2");
     }
 }

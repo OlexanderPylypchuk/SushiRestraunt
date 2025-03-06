@@ -11,6 +11,6 @@ public class MySqlConnectionFactory implements IDbContextFactory {
 
     @Override
     public IDbContext CreateRealDbContext() {
-        return new MySqlDbContext();
+        return new MySqlDbContext("connectionString2");
     }
 }

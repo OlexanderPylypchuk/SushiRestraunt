@@ -1,10 +1,11 @@
 package DbConnection;
 
+import DbConnection.Interfaces.IDbContext;
 import Models.Interface.MenuItemPrototype;
 
 import java.util.List;
 
-public class MockDbContext {
+public class MockDbContext implements IDbContext {
     private static boolean instance = false;
     public MockDbContext(){
         if(instance){
