@@ -16,4 +16,5 @@ public abstract class MenuComponent implements MenuItemPrototype {
     }
 
     public abstract void display();
+    public abstract MenuItemPrototype clone();
 }
