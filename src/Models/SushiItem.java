@@ -3,16 +3,18 @@ package Models;
 import Builders.SushiItemBuilder;
 import Models.Interface.MenuItemPrototype;
 
-public class SushiItem implements MenuItemPrototype {
+public class SushiItem extends MenuItem {
     public SushiItem(){
-
+        super("", 0);
     }
     private SushiItem(String name, double price, String ingridients){
+        super(name, price);
         Name = name;
         Price = price;
         Ingridients = ingridients;
     }
     public SushiItem(SushiItemBuilder builder){
+        super(builder.GetName(), builder.GetPrice());
         Id = builder.GetId();
         Name = builder.GetName();
         Price = builder.GetPrice();
