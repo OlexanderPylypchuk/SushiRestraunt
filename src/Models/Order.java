@@ -2,14 +2,27 @@ package Models;
 
 import Models.Interface.OrderItem;
 import Models.Interface.OrderObserver;
+import Visitor.Visitable;
+import Visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Visitable {
     private List<OrderItem> items = new ArrayList<>();
     private String status;
+    private int orderId;
+    private static int Counter = 0;
     private final List<OrderObserver> observers = new ArrayList<>();
+
+    public Order(){
+        orderId = Counter++;
+        status = "added";
+    }
+
+    public int getOrderId(){
+        return orderId;
+    }
 
     // Observer management
     public void addObserver(OrderObserver observer) {
@@ -59,5 +72,22 @@ public class Order {
 
     public void restoreState(OrderMemento memento) {
         this.items = new ArrayList<>(memento.getItems());
+    }
+
+    public double calculateTotal() {
+        double total = 0;
+        for (Object item : items) {
+            if (item instanceof MenuItem) {
+                total += ((MenuItem) item).getPrice();
+            } else if (item instanceof OrderItem) {
+                total += ((OrderItem) item).getPrice();
+            }
+        }
+        return total;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
