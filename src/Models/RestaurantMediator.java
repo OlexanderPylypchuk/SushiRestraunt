@@ -8,7 +8,6 @@ import Models.Interface.OrderMediator;
 public class RestaurantMediator implements OrderMediator {
     private Kitchen kitchen;
     private Delivery delivery;
-    private Payment payment;
 
     public void setKitchen(Kitchen kitchen) {
         this.kitchen = kitchen;
@@ -16,10 +15,6 @@ public class RestaurantMediator implements OrderMediator {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     @Override

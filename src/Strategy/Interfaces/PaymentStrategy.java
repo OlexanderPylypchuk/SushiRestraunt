@@ -1,4 +1,7 @@
 package Strategy.Interfaces;
 
-public class PaymentStrategy {
+import Models.Payment;
+
+public interface PaymentStrategy {
+    void pay(Payment payment);
 }

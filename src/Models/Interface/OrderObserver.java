@@ -1,4 +1,7 @@
 package Models.Interface;
 
-public class OrderObserver {
+import Models.Order;
+
+public interface OrderObserver {
+    void onOrderStatusChanged(Order order, String oldStatus, String newStatus);
 }

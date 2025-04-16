@@ -1,4 +1,7 @@
 package Models.Interface;
 
-public class OrderMediator {
+import Components.Component;
+
+public interface OrderMediator {
+    void notify(Component sender, String event);
 }
