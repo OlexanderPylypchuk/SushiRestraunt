@@ -10,6 +10,7 @@ public class PaymentProxy {
     }
 
     public boolean Payment(double amount){
+        //custom proxy logic, mostly for defence
         return paymentAdapter.ProcessPayment(amount);
     }
 }
