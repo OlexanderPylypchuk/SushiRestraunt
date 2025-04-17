@@ -1,10 +1,13 @@
 package Table;
 
 public class Table {
+    private int number;
+    private static int Counter;
     private TableState state;
 
     public Table() {
-        this.state = new AvailableState(); // default state
+        this.state = new AvailableState();
+        number = Counter++;
     }
 
     public void setState(TableState state) {
