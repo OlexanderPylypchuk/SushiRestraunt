@@ -32,7 +32,7 @@ public class MenuItem extends MenuComponent implements Visitable {
 
     @Override
     public void display() {
-        System.out.println(name + " : " + price + " UAH");
+        System.out.println(name + " : " + price + " TL");
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Order implements Visitable {
     }
 
     public int getTableNumber() {return tableNumber;}
-    public void setTableNumber(int newNumber) {tableNumber = newNumber}
+    public void setTableNumber(int newNumber) {tableNumber = newNumber;}
 
     public int getOrderId(){
         return orderId;
