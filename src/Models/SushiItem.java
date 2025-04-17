@@ -15,17 +15,9 @@ public class SushiItem extends MenuItem {
     }
     public SushiItem(SushiItemBuilder builder){
         super(builder.GetName(), builder.GetPrice());
-        Id = builder.GetId();
         Name = builder.GetName();
         Price = builder.GetPrice();
         Ingridients = builder.GetIngridients();
-    }
-    private int Id;
-    public int GetId() {
-        return Id;
-    }
-    public void SetId(int id){
-        Id = id;
     }
     private String Name;
     public String GetName(){

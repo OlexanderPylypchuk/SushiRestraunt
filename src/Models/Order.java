@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Order implements Visitable {
     private List<OrderItem> items = new ArrayList<>();
+    private int tableNumber;
     private String status;
     private int orderId;
     private static int Counter = 0;
@@ -19,6 +20,9 @@ public class Order implements Visitable {
         orderId = Counter++;
         status = "added";
     }
+
+    public int getTableNumber() {return tableNumber;}
+    public void setTableNumber(int newNumber) {tableNumber = newNumber}
 
     public int getOrderId(){
         return orderId;

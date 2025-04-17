@@ -5,6 +5,7 @@ import Visitor.Visitable;
 import Visitor.Visitor;
 
 public class MenuItem extends MenuComponent implements Visitable {
+
     private String name;
     private double price;
 
@@ -17,8 +18,16 @@ public class MenuItem extends MenuComponent implements Visitable {
         return name;
     }
 
+    public void setName(String newName){
+        name = newName;
+    }
+
     public double getPrice(){
         return price;
+    }
+
+    public void setPrice(double newPrice){
+        price = newPrice;
     }
 
     @Override

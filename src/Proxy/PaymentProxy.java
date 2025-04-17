@@ -10,9 +10,6 @@ public class PaymentProxy {
     }
 
     public boolean Payment(double amount){
-        if(Math.round(amount)%2==0){
-            return paymentAdapter.ProcessPayment(amount);
-        }
-        return false;
+        return paymentAdapter.ProcessPayment(amount);
     }
 }

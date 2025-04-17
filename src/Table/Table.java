@@ -2,7 +2,7 @@ package Table;
 
 public class Table {
     private int number;
-    private static int Counter;
+    private static int Counter = 0;
     private TableState state;
 
     public Table() {
