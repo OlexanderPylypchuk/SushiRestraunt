@@ -6,7 +6,7 @@ import DbConnection.Interfaces.IDbContext;
 public class MongoDbConnectionFactory implements IDbContextFactory {
     @Override
     public MockDbContext CreateMockDbContext() {
-        return new MockDbContext();
+        return MockDbContext.theInstance();
     }
 
     @Override
