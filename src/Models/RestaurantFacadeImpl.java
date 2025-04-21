@@ -27,9 +27,9 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
         this.restaurantMediator = new RestaurantMediator();
         this.paymentHandler = new PaymentProxyAdapter(new PaypalIPaymentAdapter(new PayPalService()));
         delivery = new Delivery(restaurantMediator);
-        restaurantMediator.setDelivery(delivery);
+        //restaurantMediator.setDelivery(delivery);
         kitchen = new Kitchen(restaurantMediator);
-        restaurantMediator.setKitchen(kitchen);
+        //restaurantMediator.setKitchen(kitchen);
         // Setup menu (in real app, this might come from DB or file)
         menu.put("Salmon Roll", new MenuItem("Salmon Roll", 100));
         menu.put("Tuna Roll", new MenuItem("Tuna Roll", 120));
@@ -66,5 +66,6 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
         System.out.println(order.getOrderId() + " complete order price = " + total);
         paymentHandler.processPayment(total);
         kitchen.prepareOrder();
+        delivery.deliverOrder();
     }
 }
