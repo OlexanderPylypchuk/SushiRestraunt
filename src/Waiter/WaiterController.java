@@ -12,7 +12,7 @@ public class WaiterController {
         queue.add(command);
     }
 
-    public void runCommands() {
+    public void execute() {
         for (WaiterCommand command : queue) {
             command.execute();
         }
