@@ -5,13 +5,13 @@ import Models.Interface.OrderItem;
 import java.util.List;
 
 public class OrderMemento {
-    private final List<OrderItem> items;
+    private Order state;
 
-    public OrderMemento(List<OrderItem> items) {
-        this.items = items;
+    public OrderMemento(Order state) {
+        this.state = state;
     }
 
-    public List<OrderItem> getItems() {
-        return items;
+    public Order getState() {
+        return state;
     }
 }

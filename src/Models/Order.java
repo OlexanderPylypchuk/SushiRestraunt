@@ -71,11 +71,24 @@ public class Order implements Visitable {
 
     // Memento methods
     public OrderMemento saveState() {
-        return new OrderMemento(new ArrayList<>(items));
+        Order order = new Order();
+        order.tableNumber = this.tableNumber;
+        order.orderId = this.orderId;
+        order.status = this.status;
+        for (OrderItem item : items){
+            order.addItem(item);
+        }
+        return new OrderMemento(order);
     }
 
     public void restoreState(OrderMemento memento) {
-        this.items = new ArrayList<>(memento.getItems());
+        Order order = memento.getState();
+        this.tableNumber = order.tableNumber;
+        this.orderId = order.orderId;
+        this.status = order.status;
+        for (OrderItem item : order.getItems()){
+            this.addItem(item);
+        }
     }
 
     public double calculateTotal() {

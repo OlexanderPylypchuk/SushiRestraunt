@@ -1,11 +1,11 @@
-package Proxy;
+package Adapters;
 
 import Adapters.IAdapters.IPaymentAdapter;
 
-public class PaymentProxy implements IPaymentAdapter {
+public class PaymentProxyAdapter implements IPaymentAdapter {
     private IPaymentAdapter paymentAdapter;
 
-    public PaymentProxy(IPaymentAdapter adapter){
+    public PaymentProxyAdapter(IPaymentAdapter adapter){
         paymentAdapter = adapter;
     }
 
