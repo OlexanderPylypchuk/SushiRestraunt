@@ -11,7 +11,7 @@ public class CardPaymentStrategy implements PaymentStrategy {
     public void pay(Payment payment) {
         System.out.println("Charging credit card for $" + payment.getAmount());
         PaymentProxyAdapter proxy = new PaymentProxyAdapter(new StripePaymentAdapter(new StripeService()));
-        proxy.ProcessPayment(payment.getAmount());
+        proxy.processPayment(payment.getAmount());
         System.out.println("Complete");
     }
 }

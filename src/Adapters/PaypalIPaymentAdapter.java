@@ -11,7 +11,7 @@ public class PaypalIPaymentAdapter implements IPaymentAdapter {
     }
 
     @Override
-    public boolean ProcessPayment(double amount) {
+    public boolean processPayment(double amount) {
         return payPalService.SendPayment(amount);
     }
 }

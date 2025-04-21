@@ -11,7 +11,7 @@ public class StripePaymentAdapter implements IPaymentAdapter {
     }
 
     @Override
-    public boolean ProcessPayment(double amount) {
+    public boolean processPayment(double amount) {
         try{
             stripeService.ProcessPayment(amount);
         }

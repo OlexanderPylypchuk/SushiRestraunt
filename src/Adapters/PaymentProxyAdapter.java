@@ -3,14 +3,19 @@ package Adapters;
 import Adapters.IAdapters.IPaymentAdapter;
 
 public class PaymentProxyAdapter implements IPaymentAdapter {
-    private IPaymentAdapter paymentAdapter;
+    private final IPaymentAdapter realPaymentAdapter;
 
-    public PaymentProxyAdapter(IPaymentAdapter adapter){
-        paymentAdapter = adapter;
+    public PaymentProxyAdapter(IPaymentAdapter realPaymentAdapter){
+        this.realPaymentAdapter = realPaymentAdapter;
     }
 
-    public boolean ProcessPayment(double amount){
-        //custom proxy logic, mostly for defence
-        return paymentAdapter.ProcessPayment(amount);
+    @Override
+    public boolean processPayment(double amount){
+        // Example proxy behavior
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+
+        return realPaymentAdapter.processPayment(amount);
     }
 }
