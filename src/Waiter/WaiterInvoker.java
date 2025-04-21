@@ -1,12 +1,9 @@
 package Waiter;
 
 import Waiter.Interface.WaiterCommand;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
-public class WaiterController {
+public class WaiterInvoker {
     private final Stack<WaiterCommand> queue = new Stack<WaiterCommand>();
 
     public void addCommand(WaiterCommand command) {
