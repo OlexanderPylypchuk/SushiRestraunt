@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockDbContext implements IDbContext {
-    private static MockDbContext instance = new MockDbContext();
-    public static MockDbContext theInstance() {
+    private static MockDbContext instance;
+    public static MockDbContext getInstance() {
+        if(instance == null){
+            instance = new MockDbContext();
+        }
         return instance;
     }
 
     private MockDbContext() {
-        MenuItems = new ArrayList<MenuItemPrototype>();
+        
     }
     private List<MenuItemPrototype> MenuItems;
     public List<MenuItemPrototype> GetMenuItems(){

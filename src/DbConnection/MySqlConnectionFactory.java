@@ -6,7 +6,7 @@ import DbConnection.Interfaces.IDbContext;
 public class MySqlConnectionFactory implements IDbContextFactory {
     @Override
     public MockDbContext CreateMockDbContext() {
-        return MockDbContext.theInstance();
+        return MockDbContext.getInstance();
     }
 
     @Override
