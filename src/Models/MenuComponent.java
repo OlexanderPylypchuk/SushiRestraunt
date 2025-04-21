@@ -2,16 +2,20 @@ package Models;
 
 import Models.Interface.MenuItemPrototype;
 
+
 public abstract class MenuComponent implements MenuItemPrototype {
     protected int id;
-    private static int Counter = 0;
-    public MenuComponent(){
-        this.id = Counter++;
+    private static int counter = 0;
+
+    public MenuComponent() {
+        this.id = counter++;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
 
+    // Default implementations that Composite will override
     public void add(MenuComponent component) {
         throw new UnsupportedOperationException();
     }
@@ -20,10 +24,9 @@ public abstract class MenuComponent implements MenuItemPrototype {
         throw new UnsupportedOperationException();
     }
 
-    public abstract void display();
-    public abstract MenuItemPrototype clone();
-
     public MenuComponent find(int id) {
         throw new UnsupportedOperationException();
     }
+
+    public abstract void display();
 }
