@@ -1,16 +1,16 @@
 package Builders;
 
+import Builders.Interfaces.IMenuItemBuilder;
 import Models.MenuItem;
-import Models.SushiItem;
 
-public class MenuItemBuilder {
+public class MenuItemBuilder implements IMenuItemBuilder {
     private int Id = 0;
     public void reset(){
         Id = 0;
         Name = null;
         Price = 0;
     }
-    public void SetId(int id){
+    public void setId(int id){
         Id=id;
     }
     public int GetId() {

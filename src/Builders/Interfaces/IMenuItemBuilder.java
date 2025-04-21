@@ -4,4 +4,5 @@ public interface IMenuItemBuilder {
     void reset();
     void setName(String name);
     void setPrice(double price);
+    void setId(int id);
 }

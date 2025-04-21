@@ -11,7 +11,7 @@ public class SushiItemBuilder implements IMenuItemBuilder {
         Price = 0;
         Ingridients = null;
     }
-    public void SetId(int id){
+    public void setId(int id){
         Id=id;
     }
     public int GetId() {
