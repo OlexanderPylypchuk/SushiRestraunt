@@ -1,9 +1,16 @@
 package Builders;
 
+import Builders.Interfaces.IMenuItemBuilder;
 import Models.SushiItem;
 
-public class SushiItemBuilder {
+public class SushiItemBuilder implements IMenuItemBuilder {
     private int Id = 0;
+    public void reset(){
+        Id = 0;
+        Name = null;
+        Price = 0;
+        Ingridients = null;
+    }
     public SushiItemBuilder SetId(int id){
         Id=id;
         return this;
@@ -12,9 +19,8 @@ public class SushiItemBuilder {
         return Id;
     }
     private String Name = "";
-    public SushiItemBuilder SetName(String name){
+    public void setName(String name){
         Name=name;
-        return this;
     }
     public String GetName() {
         return Name;
@@ -23,19 +29,18 @@ public class SushiItemBuilder {
     public double GetPrice(){
         return Price;
     }
-    public SushiItemBuilder SetPrice(double price){
+
+    public void setPrice(double price){
         Price=price;
-        return this;
     }
     private String Ingridients = "";
     public String GetIngridients(){
         return Ingridients;
     }
-    public SushiItemBuilder SetIngridients(String ingridients){
+    public void setIngridients(String ingridients){
         Ingridients=ingridients;
-        return this;
     }
-    public SushiItem build() {
+    public SushiItem getResult() {
         return new SushiItem(this);
     }
 }
