@@ -9,16 +9,22 @@ import Strategy.Interfaces.PaymentStrategy;
 import java.util.Scanner;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static MenuGroup rootMenu = new MenuGroup("Main Menu");
     private static Order currentOrder = new Order();
+    private static Stack<OrderMemento> mementos = new Stack<>();
     private static PaymentStrategy strategy = new CardPaymentStrategy();
 
     public static void main(String[] args) {
         setupSampleMenu();
         runApp();
+    }
+
+    private static void undo(){
+        currentOrder = mementos.pop().getState();
     }
 
     private static void runApp() {
@@ -83,6 +89,7 @@ public class Main {
                     MenuComponent found = rootMenu.find(Integer.parseInt(itemId));
                     if (found instanceof MenuItem) {
                         currentOrder.addItem(new BasicOrderItem(((MenuItem) found).getName(), ((MenuItem) found).getPrice()));
+                        mementos.add(currentOrder.saveState());
                         System.out.println(((MenuItem) found).getName() + " added to your order.");
                     } else {
                         System.out.println("Item not found.");
@@ -96,6 +103,7 @@ public class Main {
                         int table = Integer.parseInt(scanner.nextLine());
                         currentOrder.setTableNumber(table);
                         System.out.println("Table " + table + " selected.");
+                        mementos.add(currentOrder.saveState());
                     } else if (type.equalsIgnoreCase("delivery")) {
                         System.out.println("Delivery selected.");
                     } else {
@@ -116,6 +124,8 @@ public class Main {
                     double sum = currentOrder.calculateTotal();
                     strategy.pay(new Payment(sum));
                     currentOrder = new Order();
+                    mementos.clear();
+                    mementos.add(currentOrder.saveState());
                     break;
                 case "6":
                     active = false;
