@@ -3,9 +3,9 @@ package Adapters;
 import Adapters.IAdapters.IPaymentAdapter;
 
 public class PaymentProxyAdapter implements IPaymentAdapter {
-    private final IPaymentAdapter realPaymentAdapter;
+    private final PaypalIPaymentAdapter realPaymentAdapter;
 
-    public PaymentProxyAdapter(IPaymentAdapter realPaymentAdapter){
+    public PaymentProxyAdapter(PaypalIPaymentAdapter realPaymentAdapter){
         this.realPaymentAdapter = realPaymentAdapter;
     }
 
