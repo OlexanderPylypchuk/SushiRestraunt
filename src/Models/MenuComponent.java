@@ -1,6 +1,7 @@
 package Models;
 
 import Models.Interface.MenuItemPrototype;
+import jdk.jshell.spi.ExecutionControl;
 
 
 public abstract class MenuComponent implements MenuItemPrototype {
@@ -29,4 +30,9 @@ public abstract class MenuComponent implements MenuItemPrototype {
     }
 
     public abstract void display();
+
+    @Override
+    public MenuItemPrototype clone() {
+        throw new UnsupportedOperationException();
+    }
 }
