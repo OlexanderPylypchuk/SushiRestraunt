@@ -1,9 +1,13 @@
 package Models;
 
+import Adapters.PaymentProxyAdapter;
+import Adapters.PaypalIPaymentAdapter;
+import Components.Delivery;
+import Components.Kitchen;
 import Models.Interface.MenuItemPrototype;
 import Models.Interface.OrderItem;
 import Models.Interface.RestaurantFacade;
-import com.sun.tools.jconsole.JConsoleContext;
+import Payment.PayPalService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +15,21 @@ import java.util.Map;
 
 public class RestaurantFacadeImpl implements RestaurantFacade {
     private Order order;
+    private PaymentProxyAdapter paymentHandler;
+    private RestaurantMediator restaurantMediator;
+    private Kitchen kitchen;
+    private Delivery delivery;
     private Map<String, MenuItemPrototype> menu;
 
     public RestaurantFacadeImpl() {
         this.order = new Order();
         this.menu = new HashMap<>();
-
+        this.restaurantMediator = new RestaurantMediator();
+        this.paymentHandler = new PaymentProxyAdapter(new PaypalIPaymentAdapter(new PayPalService()));
+        delivery = new Delivery(restaurantMediator);
+        restaurantMediator.setDelivery(delivery);
+        kitchen = new Kitchen(restaurantMediator);
+        restaurantMediator.setKitchen(kitchen);
         // Setup menu (in real app, this might come from DB or file)
         menu.put("Salmon Roll", new MenuItem("Salmon Roll", 100));
         menu.put("Tuna Roll", new MenuItem("Tuna Roll", 120));
@@ -51,5 +64,7 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
     public void completeOrder() {
         double total = order.calculateTotal();
         System.out.println(order.getOrderId() + " complete order price = " + total);
+        paymentHandler.processPayment(total);
+        kitchen.prepareOrder();
     }
 }
