@@ -18,6 +18,10 @@ public class MenuGroup extends MenuComponent {
         items.add(component);
     }
 
+    public MenuComponent getChild(int index){
+        return items.get(index);
+    }
+
     @Override
     public MenuComponent find(int id) {
         if (this.id == id) return this;
@@ -37,6 +41,19 @@ public class MenuGroup extends MenuComponent {
                 return;
             } else if (component instanceof MenuGroup) {
                 component.remove(id);
+            }
+        }
+    }
+
+    @Override
+    public void remove(MenuComponent component) {
+        for (int i = 0; i < items.size(); i++) {
+            MenuComponent c = items.get(i);
+            if (c.getId() == component.id) {
+                items.remove(i);
+                return;
+            } else if (component instanceof MenuGroup) {
+                component.remove(component.id);
             }
         }
     }

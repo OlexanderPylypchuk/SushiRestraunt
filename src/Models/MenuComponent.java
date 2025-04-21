@@ -25,7 +25,15 @@ public abstract class MenuComponent implements MenuItemPrototype {
         throw new UnsupportedOperationException();
     }
 
+    public void remove(MenuComponent component){
+        throw new UnsupportedOperationException();
+    }
+
     public MenuComponent find(int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    public MenuComponent getChild(int index){
         throw new UnsupportedOperationException();
     }
 
