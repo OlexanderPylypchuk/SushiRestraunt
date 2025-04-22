@@ -1,8 +1,8 @@
 package Models;
 
-import Models.Interface.OrderItem;
+import Models.Interface.IOrderItem;
 
-public class BasicOrderItem implements OrderItem {
+public class BasicOrderItem implements IOrderItem {
     private String name;
     private double price;
 

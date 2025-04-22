@@ -1,11 +1,11 @@
 package Models;
 
-import Models.Interface.OrderItem;
+import Models.Interface.IOrderItem;
 
-public abstract class OrderItemDecorator implements OrderItem {
-    protected OrderItem item;
+public abstract class OrderItemDecorator implements IOrderItem {
+    protected IOrderItem item;
 
-    public OrderItemDecorator(OrderItem item) {
+    public OrderItemDecorator(IOrderItem item) {
         this.item = item;
     }
 }

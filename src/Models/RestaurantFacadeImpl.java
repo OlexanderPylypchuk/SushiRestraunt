@@ -5,7 +5,7 @@ import Adapters.PaypalIPaymentAdapter;
 import Components.Delivery;
 import Components.Kitchen;
 import Models.Interface.MenuItemPrototype;
-import Models.Interface.OrderItem;
+import Models.Interface.IOrderItem;
 import Models.Interface.RestaurantFacade;
 import Payment.PayPalService;
 
@@ -40,7 +40,7 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
     public void addMenuItemToOrder(String itemName) {
         MenuItemPrototype prototype = menu.get(itemName);
         if (prototype != null) {
-            order.addItem((OrderItem) prototype.clone());
+            order.addItem((IOrderItem) prototype.clone());
         }
     }
 
@@ -48,7 +48,7 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
     public void addMenuItemWithAddons(String itemName, List<String> addons) {
         MenuItemPrototype prototype = menu.get(itemName);
         if (prototype != null) {
-            OrderItem base = new BasicOrderItem(itemName, ((MenuItem) prototype).getPrice());
+            IOrderItem base = new BasicOrderItem(itemName, ((MenuItem) prototype).getPrice());
             for (String addon : addons) {
                 switch (addon.toLowerCase()) {
                     case "extra wasabi":

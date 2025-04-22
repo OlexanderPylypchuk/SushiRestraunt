@@ -1,6 +1,6 @@
 package Models;
 
-import Models.Interface.OrderItem;
+import Models.Interface.IOrderItem;
 import Models.Interface.OrderObserver;
 import Visitor.Visitable;
 import Visitor.Visitor;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Visitable {
-    private List<OrderItem> items = new ArrayList<>();
+    private List<IOrderItem> items = new ArrayList<>();
     private int tableNumber;
     private String status;
     private int orderId;
@@ -53,15 +53,15 @@ public class Order implements Visitable {
         notifyObservers(oldStatus, status);
     }
 
-    public void addItem(OrderItem item) {
+    public void addItem(IOrderItem item) {
         items.add(item);
     }
 
-    public void removeItem(OrderItem item) {
+    public void removeItem(IOrderItem item) {
         items.remove(item);
     }
 
-    public List<OrderItem> getItems() {
+    public List<IOrderItem> getItems() {
         return items;
     }
 
@@ -75,7 +75,7 @@ public class Order implements Visitable {
         order.tableNumber = this.tableNumber;
         order.orderId = this.orderId;
         order.status = this.status;
-        for (OrderItem item : items){
+        for (IOrderItem item : items){
             order.addItem(item);
         }
         return new OrderMemento(order);
@@ -86,7 +86,7 @@ public class Order implements Visitable {
         this.tableNumber = order.tableNumber;
         this.orderId = order.orderId;
         this.status = order.status;
-        for (OrderItem item : order.getItems()){
+        for (IOrderItem item : order.getItems()){
             this.addItem(item);
         }
     }
@@ -96,8 +96,8 @@ public class Order implements Visitable {
         for (Object item : items) {
             if (item instanceof MenuItem) {
                 total += ((MenuItem) item).getPrice();
-            } else if (item instanceof OrderItem) {
-                total += ((OrderItem) item).getPrice();
+            } else if (item instanceof IOrderItem) {
+                total += ((IOrderItem) item).getPrice();
             }
         }
         return total;

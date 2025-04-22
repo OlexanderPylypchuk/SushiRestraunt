@@ -1,6 +1,6 @@
 package Models.Interface;
 
-public interface OrderItem {
+public interface IOrderItem {
     String getDescription();
     double getPrice();
 }

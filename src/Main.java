@@ -1,7 +1,7 @@
 import DbConnection.MockDbContext;
 import DbConnection.MySqlConnectionFactory;
 import Models.*;
-import Models.Interface.OrderItem;
+import Models.Interface.IOrderItem;
 import Strategy.CardPaymentStrategy;
 import Strategy.CashPaymentStrategy;
 import Strategy.Interfaces.PaymentStrategy;

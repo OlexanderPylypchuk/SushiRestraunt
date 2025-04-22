@@ -1,9 +1,9 @@
 package Models;
 
-import Models.Interface.OrderItem;
+import Models.Interface.IOrderItem;
 
 public class ExtraWasabiDecorator extends OrderItemDecorator {
-    public ExtraWasabiDecorator(OrderItem item) {
+    public ExtraWasabiDecorator(IOrderItem item) {
         super(item);
     }
 

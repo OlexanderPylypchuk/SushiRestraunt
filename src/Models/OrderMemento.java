@@ -1,9 +1,5 @@
 package Models;
 
-import Models.Interface.OrderItem;
-
-import java.util.List;
-
 public class OrderMemento {
     private Order state;
 
