@@ -1,6 +1,6 @@
 package Models;
 
-import Models.Interface.IOrderItem;
+import Models.Interface.IOrderComponent;
 import Models.Interface.OrderObserver;
 import Visitor.Visitable;
 import Visitor.Visitor;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Visitable {
-    private List<IOrderItem> items = new ArrayList<>();
+    private List<IOrderComponent> items = new ArrayList<>();
     private int tableNumber;
     private String status;
     private int orderId;
@@ -53,15 +53,15 @@ public class Order implements Visitable {
         notifyObservers(oldStatus, status);
     }
 
-    public void addItem(IOrderItem item) {
+    public void addItem(IOrderComponent item) {
         items.add(item);
     }
 
-    public void removeItem(IOrderItem item) {
+    public void removeItem(IOrderComponent item) {
         items.remove(item);
     }
 
-    public List<IOrderItem> getItems() {
+    public List<IOrderComponent> getItems() {
         return items;
     }
 
@@ -75,7 +75,7 @@ public class Order implements Visitable {
         order.tableNumber = this.tableNumber;
         order.orderId = this.orderId;
         order.status = this.status;
-        for (IOrderItem item : items){
+        for (IOrderComponent item : items){
             order.addItem(item);
         }
         return new OrderMemento(order);
@@ -86,7 +86,7 @@ public class Order implements Visitable {
         this.tableNumber = order.tableNumber;
         this.orderId = order.orderId;
         this.status = order.status;
-        for (IOrderItem item : order.getItems()){
+        for (IOrderComponent item : order.getItems()){
             this.addItem(item);
         }
     }
@@ -96,8 +96,8 @@ public class Order implements Visitable {
         for (Object item : items) {
             if (item instanceof MenuItem) {
                 total += ((MenuItem) item).getPrice();
-            } else if (item instanceof IOrderItem) {
-                total += ((IOrderItem) item).getPrice();
+            } else if (item instanceof IOrderComponent) {
+                total += ((IOrderComponent) item).getPrice();
             }
         }
         return total;

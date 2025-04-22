@@ -1,12 +1,12 @@
 package Models;
 
-import Models.Interface.IOrderItem;
+import Models.Interface.IOrderComponent;
 
-public class BasicOrderItem implements IOrderItem {
+public class BasicOrderComponent implements IOrderComponent {
     private String name;
     private double price;
 
-    public BasicOrderItem(String name, double price) {
+    public BasicOrderComponent(String name, double price) {
         this.name = name;
         this.price = price;
     }

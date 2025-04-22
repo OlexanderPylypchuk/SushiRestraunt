@@ -1,15 +1,9 @@
-import DbConnection.MockDbContext;
-import DbConnection.MySqlConnectionFactory;
 import Models.*;
-import Models.Interface.IOrderItem;
 import Strategy.CardPaymentStrategy;
 import Strategy.CashPaymentStrategy;
 import Strategy.Interfaces.PaymentStrategy;
 
 import java.util.Scanner;
-
-import java.util.Scanner;
-import java.util.Stack;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -88,7 +82,7 @@ public class Main {
                     String itemId = scanner.nextLine();
                     MenuComponent found = rootMenu.find(Integer.parseInt(itemId));
                     if (found instanceof MenuItem) {
-                        currentOrder.addItem(new BasicOrderItem(((MenuItem) found).getName(), ((MenuItem) found).getPrice()));
+                        currentOrder.addItem(new BasicOrderComponent(((MenuItem) found).getName(), ((MenuItem) found).getPrice()));
                         history.save(currentOrder.saveState());
                         System.out.println(((MenuItem) found).getName() + " added to your order.");
                     } else {
