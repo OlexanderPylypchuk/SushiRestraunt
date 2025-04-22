@@ -2,7 +2,7 @@ package Models;
 
 import Models.Interface.IOrderComponent;
 
-public class ExtraWasabiDecorator extends OrderComponentDecorator {
+public class ExtraWasabiDecorator extends OrderDecorator {
     public ExtraWasabiDecorator(IOrderComponent component) {
         super(component);
     }
