@@ -21,16 +21,15 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
     private Delivery delivery;
     private Map<String, MenuItemPrototype> menu;
 
-    public RestaurantFacadeImpl() {
-        this.order = new Order();
+    public RestaurantFacadeImpl(Order order) {
+        this.order = order;
         this.menu = new HashMap<>();
         this.restaurantMediator = new RestaurantMediator();
         this.paymentHandler = new PaymentProxyAdapter(new PaypalIPaymentAdapter(new PayPalService()));
         delivery = new Delivery(restaurantMediator);
-        //restaurantMediator.setDelivery(delivery);
+        restaurantMediator.setDelivery(delivery);
         kitchen = new Kitchen(restaurantMediator);
-        //restaurantMediator.setKitchen(kitchen);
-        // Setup menu (in real app, this might come from DB or file)
+        restaurantMediator.setKitchen(kitchen);
         menu.put("Salmon Roll", new MenuItem("Salmon Roll", 100));
         menu.put("Tuna Roll", new MenuItem("Tuna Roll", 120));
         menu.put("Philadelphia Roll", new MenuItem("Philadelphia Roll", 130));

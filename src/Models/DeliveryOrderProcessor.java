@@ -9,8 +9,8 @@ public class DeliveryOrderProcessor extends OrderProcessor {
 
     @Override
     protected boolean validatePayment() {
-        System.out.println("Validating online payment...");
-        return true; // Could connect to payment API here
+        System.out.println("Validating payment");
+        return true;
     }
 
     @Override

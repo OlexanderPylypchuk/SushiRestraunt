@@ -24,7 +24,7 @@ public class MenuGroup extends MenuComponent {
 
     @Override
     public MenuComponent find(int id) {
-        if (this.id == id) return this;
+        if(id == this.id) return  this;
         for (MenuComponent component : items) {
             MenuComponent found = component.find(id);
             if (found != null) return found;
@@ -60,7 +60,7 @@ public class MenuGroup extends MenuComponent {
 
     @Override
     public void display() {
-        System.out.println("\n" + name);
+        System.out.println("\n " + id + " - " + name);
         for (MenuComponent component : items) {
             component.display();
         }

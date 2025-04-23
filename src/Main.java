@@ -1,8 +1,18 @@
+import Builders.SushiDirector;
+import Builders.SushiItemBuilder;
 import Models.*;
+import Models.Interface.IOrderComponent;
+import Models.Interface.MenuItemPrototype;
 import Strategy.CardPaymentStrategy;
 import Strategy.CashPaymentStrategy;
 import Strategy.Interfaces.PaymentStrategy;
+import SushiMaking.FishCutter;
+import SushiMaking.Packager;
+import SushiMaking.RicePreparer;
+import SushiMaking.Roller;
+import Waiter.*;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -11,8 +21,25 @@ public class Main {
     private static Order currentOrder = new Order();
     private static OrderHistory history = new OrderHistory();
     private static PaymentStrategy strategy = new CardPaymentStrategy();
+    private static Waiter waiter = new Waiter();
+    private static WaiterInvoker invoker = new WaiterInvoker();
+    private static RicePreparer preparer = new RicePreparer();
+    private static RestaurantFacadeImpl restaurantFacade = new RestaurantFacadeImpl(currentOrder);
 
     public static void main(String[] args) {
+        invoker.addCommand(new GreetCommand(waiter));
+        invoker.addCommand(new TakeOrderCommand(waiter));
+        invoker.addCommand(new BringWasabiCommand(waiter));
+        invoker.addCommand(new CleanTableCommand(waiter));
+
+        Packager packager = new Packager();
+        Roller roller = new Roller();
+        FishCutter cutter = new FishCutter();
+        roller.setNext(packager);
+        cutter.setNext(roller);
+        preparer.setNext(cutter);
+
+
         setupSampleMenu();
         runApp();
     }
@@ -49,8 +76,14 @@ public class Main {
 
     private static void setupSampleMenu() {
         MenuGroup sushiRolls = new MenuGroup("Sushi Rolls");
-        sushiRolls.add(new MenuItem("California Roll", 8.99));
-        sushiRolls.add(new MenuItem("Spicy Tuna Roll", 9.99));
+        SushiItemBuilder builder = new SushiItemBuilder();
+        SushiDirector director = new SushiDirector();
+        director.makeCaliforniaSushi(builder);
+        sushiRolls.add(new SushiItem(builder));
+        builder.reset();
+        director.makePhiladelphiaSushi(builder);
+        sushiRolls.add(new SushiItem(builder));
+        builder.reset();
 
         MenuGroup drinks = new MenuGroup("Drinks");
         drinks.add(new MenuItem("Green Tea", 2.50));
@@ -64,12 +97,12 @@ public class Main {
         boolean active = true;
         while (active) {
             System.out.println("\nCustomer Menu:");
-            System.out.println("1. Show Menu");
-            System.out.println("2. Add Item to Order");
-            System.out.println("3. Choose Order Option");
-            System.out.println("4. Choose Payment Method");
-            System.out.println("5. Complete Order");
-            System.out.println("6. Back to Main Menu");
+            System.out.println("1. Show menu");
+            System.out.println("2. Add item to order");
+            System.out.println("3. Choose order option");
+            System.out.println("4. Choose payment method");
+            System.out.println("5. Complete order");
+            System.out.println("6. Back to main menu");
 
             String choice = scanner.nextLine();
 
@@ -81,7 +114,21 @@ public class Main {
                     System.out.print("Enter item id: ");
                     String itemId = scanner.nextLine();
                     MenuComponent found = rootMenu.find(Integer.parseInt(itemId));
-                    if (found instanceof MenuItem) {
+                    if(found instanceof  SushiItem){
+                        preparer.handle((SushiItem) found);
+                        System.out.println("Extra wasabi? To confirm, type 'yes'");
+                        if(Objects.equals(scanner.nextLine(), "yes")){
+                            ExtraWasabiDecorator wasabiDecorator = new ExtraWasabiDecorator(new BasicOrderComponent(((SushiItem) found).getName(), ((SushiItem) found).getPrice()));
+                            currentOrder.addItem(wasabiDecorator);
+                            history.save(currentOrder.saveState());
+                        }
+                        else{
+                            currentOrder.addItem(new BasicOrderComponent(((MenuItem) found).getName(), ((MenuItem) found).getPrice()));
+                            history.save(currentOrder.saveState());
+                        }
+                        System.out.println(((MenuItem) found).getName() + " added to your order.");
+                    }
+                    else if (found instanceof MenuItem) {
                         currentOrder.addItem(new BasicOrderComponent(((MenuItem) found).getName(), ((MenuItem) found).getPrice()));
                         history.save(currentOrder.saveState());
                         System.out.println(((MenuItem) found).getName() + " added to your order.");
@@ -90,7 +137,7 @@ public class Main {
                     }
                     break;
                 case "3":
-                    System.out.print("Delivery or Indoors? ");
+                    System.out.print("Delivery or indoors? Type 'delivery' or 'indoors'");
                     String type = scanner.nextLine();
                     if (type.equalsIgnoreCase("indoors")) {
                         System.out.print("Choose table number: ");
@@ -105,7 +152,7 @@ public class Main {
                     }
                     break;
                 case "4":
-                    System.out.print("Payment method (card/cash): ");
+                    System.out.print("Payment method? Type 'card' or 'cash'");
                     switch (scanner.nextLine()){
                         case "card":
                             strategy = new CardPaymentStrategy();
@@ -132,13 +179,14 @@ public class Main {
     private static void adminMode() {
         boolean active = true;
         while (active) {
-            System.out.println("\nAdmin Menu:");
-            System.out.println("1. Add Menu Item");
-            System.out.println("2. Add Menu Group");
-            System.out.println("3. Update Menu Item");
-            System.out.println("4. Delete Menu Item");
-            System.out.println("5. Show Menu");
-            System.out.println("6. Back to Main Menu");
+            System.out.println("\nAdmin menu:");
+            System.out.println("1. Add menu item");
+            System.out.println("2. Add menu group");
+            System.out.println("3. Update menu item");
+            System.out.println("4. Delete menu item");
+            System.out.println("5. Show menu");
+            System.out.println("6. Check waiter");
+            System.out.println("0. Back to main menu");
 
             String choice = scanner.nextLine();
 
@@ -172,7 +220,7 @@ public class Main {
                     }
                     break;
                 case "3":
-                    System.out.print("Enter item name to update: ");
+                    System.out.print("Enter item id to update: ");
                     String itemToUpdate = scanner.nextLine();
                     MenuComponent comp = rootMenu.find(Integer.parseInt(itemToUpdate));
                     if (comp instanceof MenuItem) {
@@ -197,6 +245,9 @@ public class Main {
                     rootMenu.display();
                     break;
                 case "6":
+                    invoker.execute();
+                    break;
+                case "0":
                     active = false;
                     break;
                 default:

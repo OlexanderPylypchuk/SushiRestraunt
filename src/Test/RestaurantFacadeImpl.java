@@ -1,6 +1,5 @@
 package Test;
 
-// ✅ Facade Class
 public class RestaurantFacadeImpl implements RestaurantFacade {
     private Kitchen kitchen;
     private PaymentSystem payment;

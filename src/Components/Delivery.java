@@ -1,9 +1,9 @@
 package Components;
 
-import Models.Interface.OrderMediator;
+import Models.Interface.Mediator;
 
 public class Delivery extends Component {
-    public Delivery(OrderMediator mediator) {
+    public Delivery(Mediator mediator) {
         super(mediator);
     }
 

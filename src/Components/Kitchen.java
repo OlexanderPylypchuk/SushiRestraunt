@@ -1,9 +1,9 @@
 package Components;
 
-import Models.Interface.OrderMediator;
+import Models.Interface.Mediator;
 
 public class Kitchen extends Component {
-    public Kitchen(OrderMediator mediator) {
+    public Kitchen(Mediator mediator) {
         super(mediator);
     }
 

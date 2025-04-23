@@ -3,9 +3,9 @@ package Models;
 import Components.Component;
 import Components.Delivery;
 import Components.Kitchen;
-import Models.Interface.OrderMediator;
+import Models.Interface.Mediator;
 
-public class RestaurantMediator implements OrderMediator {
+public class RestaurantMediator implements Mediator {
     private Kitchen kitchen;
     private Delivery delivery;
 

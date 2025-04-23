@@ -8,7 +8,6 @@ import Visitor.Visitor;
 import java.util.Random;
 
 public class MenuItem extends MenuComponent implements Visitable {
-    private int Id = 0;
     private String name;
     private double price;
 
@@ -16,13 +15,20 @@ public class MenuItem extends MenuComponent implements Visitable {
         this.name = name;
         this.price = price;
         Random rand = new Random();
-        Id = rand.nextInt(0, Integer.MAX_VALUE);
     }
 
     public MenuItem(MenuItemBuilder builder){
         this.name = builder.GetName();
         this.price = builder.GetPrice();
-        this.Id = builder.GetId();
+        id = builder.GetId();
+    }
+
+    @Override
+    public MenuComponent find(int id) {
+        if(id == super.id){
+            return this;
+        }
+        return null;
     }
 
     public String getName(){
@@ -43,7 +49,7 @@ public class MenuItem extends MenuComponent implements Visitable {
 
     @Override
     public void display() {
-        System.out.println(name + " : " + price + " TL");
+        System.out.println(id + " - " + name + " : " + price + " TL");
     }
 
     @Override

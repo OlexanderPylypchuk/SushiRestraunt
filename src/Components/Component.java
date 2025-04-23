@@ -1,11 +1,11 @@
 package Components;
 
-import Models.Interface.OrderMediator;
+import Models.Interface.Mediator;
 
 public abstract class Component {
-    protected OrderMediator mediator;
+    protected Mediator mediator;
 
-    public Component(OrderMediator mediator) {
+    public Component(Mediator mediator) {
         this.mediator = mediator;
     }
 }
